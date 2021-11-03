@@ -6,3 +6,4 @@ const LOGIN = 'root';
 const PASSWORD = '';
 const BASEURL = '/mystudy/photocatalog/';
 const DEFAULTPAGE = 'Catalog';
+//const DEFAULTPAGE = 'Catalog';
