@@ -23,7 +23,6 @@ function sendRequest(url, emptypost, formssite)
 
 function sendRequestPhoto(url, emptypost, formssite)
 {
-	//alert("Hi!"); 
 	let xhr = new XMLHttpRequest();
     let formData = new FormData(document.forms.edit_form);
     xhr.open('POST', url, true);
@@ -42,4 +41,12 @@ function sendRequestPhoto(url, emptypost, formssite)
 	} else {
 		xhr.send(formData); //посылаем данные методом POST
 	}
+}
+
+function showtEditPhotoForm(idphoto, url)
+{
+	var myModal = new bootstrap.Modal(document.getElementById('editphoto'), {keyboard: false});
+	myModal.show();
+	document.getElementById("idPhotoFound").value = idphoto;
+	sendRequestPhoto(url);
 }

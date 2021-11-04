@@ -30,7 +30,18 @@ class Edit {
     
     public function __construct($parameters)
     {
-    }
+		$this->checkAdminRole(); //проверка прав администратора
+	}
+
+
+	private function checkAdminRole()
+    {
+		if (!(isset($_SESSION['role']) && ($_SESSION['role'] === 'admin'))) {
+			$error = 'У вас нет прав на данное действие.';
+			include 'view/error.php';
+			exit;
+		}
+	}
 
     private function checkEmpty($datain)
     {
@@ -121,13 +132,11 @@ class Edit {
 		} else {
 			$this->error = 'Не удалось передать данные из формы.<br>';
 		}
-    }
+	}
 
 	public function photoUpdate()
     {
 		if (($_SERVER['REQUEST_METHOD'] == 'POST') && (count($_POST) <> 0)) { //Проверка получения данных
-			//var_dump($_POST);
-			//var_dump($_FILES);
 			if ($this->validateUpdateCreate()) { //Проверка данных
 				\Core\Db::exec($this->update, [$_POST['idcatalog'], $this->data['shortname'], $_POST['place'], $_POST['idcountry'], 
 												$_POST['fdate'], $_POST['ftime'], $_POST['heightpix'], $_POST['widthpix'], 
@@ -152,8 +161,9 @@ class Edit {
 	public function photoCreate()
     {
 		$this->createfunc = true; //переменная пеередается во view
-		if (($_SERVER['REQUEST_METHOD'] == 'POST') && (count($_POST) == 0)) { //Проверка получения данных
-			//Отправляем в форму пустые данные.
+		if ((($_SERVER['REQUEST_METHOD'] == 'POST') && (count($_POST) == 0)) 
+			|| (!isset($_POST['idphoto'])) 
+			|| (isset($_POST['idphoto']) && ($_POST['idphoto'] <> 0))) { //Проверка получения данных
 			$this->dataPhoto = [0 => ['idphoto' => 0, 'addtimestamp' => 0, 
 										'photofile' => '', 'photofilesmall' => '', 
 										'idcatalog' => '', 'shortname' => '', 

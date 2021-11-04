@@ -26,10 +26,11 @@
 			<?=$htmlAdminMenu?> <!--меню админа-->
         </li>
 	  </ul>
-      <form class="d-flex" style="margin-top : 1%;">
-        <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Поиск</button>
-      </form>
+      <form class="d-flex" style="margin-top : 1%;" method="POST" name="search_form" action="<?=BASEURL . 'catalog/read/1'?>">
+        <input class="form-control me-2" type="Search" placeholder="Поиск" aria-label="Search" name="searchtext" value="">
+        <input class="btn btn-outline-success" type="submit" name="buttonsearch" value="Поиск");">
+		<!--button class="btn btn-outline-success" type="submit">Поиск</button-->
+	  </form>
 	  &nbsp; &nbsp; 
 	  <ul class="navbar-nav ">
         <li class="nav-item">

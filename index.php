@@ -10,5 +10,5 @@ spl_autoload_register(function ($class) {
     return false;
 });
 
-$controller = new Controller\Router(DEFAULTPAGE, BASEURL);
-$controller->runRouter();
+$router = new Controller\Router(BASEURL);
+$router->runRouter();

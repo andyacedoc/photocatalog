@@ -13,24 +13,22 @@ class Edit {
     {
 		If ($this->model->getCreatefunc()) { //показываем или скрываем кнопки на форме
 			$button = 'hidden';
-			$text = 'hidden';
-			$descr = '';
-			$buttoncreate = 'button';
 			$filef = 'file';
+			$commentstart = '<!--';
+			$commentend = '-->';
 		} else {
 			$button = 'button';
-			$text = 'text';
-			$descr = 'Введите идентификатор фотографии ';
-			$buttoncreate = 'hidden';
 			$filef = 'hidden';
+			$commentstart = '';
+			$commentend = '';			
 		}
 		$urlRead = BASEURL . 'edit/photoread/';
 		$urlCreate = BASEURL . 'edit/photocreate/';
 		$formssite = '';
 		$htmlEditForm = '<div class="col-12">'
-						. '<p>' . $descr . '<input type="' . $text . '" size="7" maxlength="50" id="idPhotoFound" name="idPhotoFound" value=""> '
-						. '<input type="' . $button . '" name="button" value="Найти" onclick="sendRequestPhoto(\'' . $urlRead . '\', \'\', \'' . $formssite . '\');"> '
-						. '<input type="' . $buttoncreate . '" name="button" value="Добавить" onclick="sendRequestPhoto(\'' . $urlCreate . '\', \'\', \'' . $formssite . '\');"></p></div>';	
+						. '<p>Введите идентификатор фотографии <input type="text" size="7" maxlength="50" id="idPhotoFound" name="idPhotoFound" value=""> '
+						. '<input type="button" name="button" value="Найти" onclick="sendRequestPhoto(\'' . $urlRead . '\', \'\', \'' . $formssite . '\');"> '
+						. '<span style="float:right;">Добавить фотографию <input type="button" name="button" value="Добавить" onclick="sendRequestPhoto(\'' . $urlCreate . '\', \'\', \'' . $formssite . '\');"></span></p></div>';	
 		if ($this->model->getError() && !($this->model->getErrorValidate())) {
 			echo '<b>' . $this->model->getError() . '</b>' . $htmlEditForm;
         } else {
@@ -46,12 +44,12 @@ class Edit {
 							. '<input type="' . $button . '" name="button" value="Удалить" onclick="sendRequestPhoto(\'' . $urlDelete . '\', \'\', \'' . $formssite . '\');"> '
 							. '<input type="button" name="button" value="Оменить" onclick="location.reload();"><br><br></div>'
 							. '<div class="col-4">'
-							. '<img src="' . BASEURL . 'catalog/photos/' . $dataPhoto[0]['photofilesmall'] . '" class="img-thumbnail" alt="here image"></div>'
+							. $commentstart . '<img src="' . BASEURL . 'catalog/photos/' . $dataPhoto[0]['photofilesmall'] . '" class="img-thumbnail" alt="here image">' . $commentend . '</div>'
 							. '<div class="col">'
 							. '<input type="hidden" size="7" maxlength="50" name="photofilesmall" value="' . $dataPhoto[0]['photofilesmall'] . '">'
 							. '<input type="hidden" size="7" maxlength="50" name="photofile" value="' . $dataPhoto[0]['photofile'] . '">'
-							. '<p>Идентификатор фотографии <input readonly type="text" size="7" maxlength="50" name="idphoto" value="' . $dataPhoto[0]['idphoto'] . '"></p>'
-							. '<p>Дата добавления в каталог <input readonly type="text" size="16" maxlength="50" name="addtimestamp" value="' . $dataPhoto[0]['addtimestamp'] . '"></p>'
+							. '<p>Идентификатор фотографии <input readonly type="text" size="7" maxlength="50" name="idphoto" value="' . $dataPhoto[0]['idphoto'] . '"></p>' 
+							. '<p>Дата добавления в каталог <input readonly type="text" size="16" maxlength="50" name="addtimestamp" value="' . $dataPhoto[0]['addtimestamp'] . '"></p>' 
 							. '<p>Файл изображения: ' . $dataPhoto[0]['photofile'] . ' <input type="' . $filef . '" name="image"></p></div>'
 							. '<div class="col-6">'
 							. '<p>Раздел каталога <select name="idcatalog">';
